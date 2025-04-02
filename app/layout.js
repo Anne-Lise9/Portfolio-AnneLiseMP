@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
             <p>
               © 2025 Anne-Lise Massie-Plante |{" "}
               <a
-                href="https://github.com/ton-github"
+                href="https://github.com/Anne-Lise9/Portfolio-AnneLiseMP"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline"
@@ -43,7 +43,7 @@ export default function RootLayout({ children }) {
               </a>{" "}
               |{" "}
               <a
-                href="https://linkedin.com/in/ton-linkedin"
+                href="https://www.linkedin.com/in/anne-lise-m-plante-ab73211a4/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline"
