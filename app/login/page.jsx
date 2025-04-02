@@ -1,11 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/features/authSlice";
 
 export default function LoginPage() {
   const dispatch = useDispatch();
+  const users = useSelector((state) => state.auth.users);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -16,7 +19,14 @@ export default function LoginPage() {
       setError("Tous les champs sont obligatoires.");
       return;
     }
-    dispatch(login({ email }));
+
+    const userExists = users.find((u) => u.email === email && u.password === password);
+    if (!userExists) {
+      setError("Identifiants invalides.");
+      return;
+    }
+
+    dispatch(login({ email, password }));
     setError("");
     alert("Connexion réussie !");
   };

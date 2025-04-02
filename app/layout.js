@@ -1,9 +1,7 @@
 import Link from "next/link";
 import "./globals.css";
-import { store } from "../redux/store";
-import { Provider } from "react-redux";
 import { Providers } from "./Providers";
-
+import Navbar from "./Navbar";
 
 export const metadata = {
   title: "Portfolio Anne-Lise",
@@ -14,16 +12,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fr">
       <body className="flex flex-col min-h-screen">
-      <Providers>
+        <Providers>
           {/* Header */}
           <header className="bg-gray-800 text-white p-4">
-            <nav className="flex justify-center gap-8">
-              <Link href="/">Accueil</Link>
-              <Link href="/projects">Projets</Link>
-              <Link href="/testimonials">Témoignages</Link>
-              <Link href="/login">Connexion</Link>
-              <Link href="/signup">Inscription</Link>
-            </nav>
+            <Navbar />
           </header>
 
           {/* Contenu de la page */}

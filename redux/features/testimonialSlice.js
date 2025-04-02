@@ -9,7 +9,12 @@ const testimonialSlice = createSlice({
   initialState,
   reducers: {
     addTestimonial: (state, action) => {
-      state.testimonials.push(action.payload);
+      const newTestimonial = {
+        id: Date.now(), // ID unique simple
+        text: action.payload.text,
+        author: action.payload.author,
+      };
+      state.testimonials.push(newTestimonial);
     },
     updateTestimonial: (state, action) => {
       const index = state.testimonials.findIndex(

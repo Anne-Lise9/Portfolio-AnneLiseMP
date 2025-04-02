@@ -20,7 +20,8 @@ export default function TestimonialsPage() {
           ) : (
             testimonials.map((t) => (
               <li key={t.id} className="border p-2 mb-2 rounded">
-                {t.message}
+                <p className="font-semibold">{t.author}</p>
+                <p>{t.text}</p>
               </li>
             ))
           )}

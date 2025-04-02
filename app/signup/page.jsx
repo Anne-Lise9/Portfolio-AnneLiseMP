@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../../redux/features/authSlice";
 
 export default function SignupPage() {
   const dispatch = useDispatch();
+  const users = useSelector((state) => state.auth.users);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -16,7 +17,14 @@ export default function SignupPage() {
       setError("Tous les champs sont obligatoires.");
       return;
     }
-    dispatch(signup({ email }));
+
+    const userExists = users.find((u) => u.email === email);
+    if (userExists) {
+      setError("Ce courriel est déjà inscrit.");
+      return;
+    }
+
+    dispatch(signup({ email, password }));
     setError("");
     alert("Inscription réussie !");
   };

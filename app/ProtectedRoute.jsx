@@ -1,17 +1,21 @@
 "use client";
 
 import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function ProtectedRoute({ children }) {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push("/login");
+    }
+  }, [isAuthenticated, router]);
 
   if (!isAuthenticated) {
-    return (
-      <main className="flex flex-col items-center justify-center min-h-screen p-8">
-        <h1 className="text-2xl font-semibold mb-4">Accès refusé</h1>
-        <p>Vous devez être connecté pour accéder à cette page.</p>
-      </main>
-    );
+    return null; // On ne montre rien le temps qu'il soit redirigé
   }
 
   return children;

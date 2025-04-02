@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTestimonial } from "../../../redux/features/testimonialSlice";
 import { useRouter } from "next/navigation";
 import ProtectedRoute from "../../ProtectedRoute";
@@ -9,16 +9,19 @@ import ProtectedRoute from "../../ProtectedRoute";
 export default function EditTestimonialPage() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [message, setMessage] = useState("");
+  const user = useSelector((state) => state.auth.user);
+
+  const [text, setText] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!message) {
+    if (!text) {
       setError("Le message est obligatoire.");
       return;
     }
-    dispatch(addTestimonial({ id: Date.now(), message }));
+
+    dispatch(addTestimonial({ text, author: user.email }));
     setError("");
     alert("Témoignage ajouté !");
     router.push("/testimonials");
@@ -31,8 +34,8 @@ export default function EditTestimonialPage() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full max-w-sm">
           <textarea
             placeholder="Votre témoignage"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
             className="border p-2 rounded"
           />
           {error && <p className="text-red-500">{error}</p>}
